@@ -17,6 +17,25 @@ const Header = () => {
   const [show, setShow] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  const controlNavbar = () => {
+    if (window.scrollY > 200) {
+      if (window.scrollY > lastScrollY && !mobileMenu) {
+        setShow("-translate-y-[80px]");
+      } else {
+        setShow("shadow-sm");
+      }
+    } else {
+      setShow("translate-y-0");
+    }
+    setLastScrollY(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavbar);
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
+
   return (
     <header
       className={`w-full h-[50px] md:h-[80px] flex justify-between items-center bg-white z-20 sticky top-0 transition-transform duration-300 ${show}`}
@@ -56,19 +75,21 @@ const Header = () => {
           </div>
           {/* Icon End */}
           {/* Mobile Icon Start */}
-          <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">
-            {mobileMenu ? (
-              <VscChromeClose
-                className="text-[16px]"
-                onClick={() => setMobileMenu(false)}
-              />
-            ) : (
-              <BiMenuAltRight
-                className="text-[20px] flex md:hidden"
-                onClick={() => setMobileMenu(true)}
-              />
-            )}
-          </div>
+
+            <div className="md:hidden w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">
+              {mobileMenu ? (
+                <VscChromeClose
+                  className="text-[16px]"
+                  onClick={() => setMobileMenu(false)}
+                />
+              ) : (
+                <BiMenuAltRight
+                  className="text-[20px] flex md:hidden"
+                  onClick={() => setMobileMenu(true)}
+                />
+              )}
+            </div>
+
           {/* Mobile Icon End */}
         </div>
       </Wrapper>
