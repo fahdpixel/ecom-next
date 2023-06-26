@@ -4,9 +4,9 @@ import { BsChevronDown } from "react-icons/bs";
 
 const data = [
   { id: 1, name: "Home", url: "/" },
-  { id: 2, name: "About", url: "/about" },
+  { id: 2, name: "About", url: "/" },
   { id: 3, name: "Categories", subMenu: true },
-  { id: 4, name: "Contact", url: "/contact" },
+  { id: 4, name: "Contact", url: "/" },
 ];
 
 const subMenuData = [
@@ -32,7 +32,7 @@ const Menu = ({ showCatMenu, setShowCatMenu }) => {
               {showCatMenu && (
                 <ul className="bg-white absolute top-6 left-0 min-w-[250px] px-1 py-1 shadow-lg">
                   {subMenuData?.map((i) => (
-                    <Link key={i.id} href="/" onClick={() => setShowCatMenu(false)}>
+                    <Link key={i.id} href="/category/products" onClick={() => setShowCatMenu(false)}>
                       <li className="h-12 flex justify-between items-center px-3 hover:bg-black/[0.03] rounded-md">
                         {i.name}
                         <span className="opacity-50 text-sm">
